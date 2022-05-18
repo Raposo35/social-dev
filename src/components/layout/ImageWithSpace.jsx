@@ -4,7 +4,7 @@ const StyledFlex = styled.div`
 	display: flex;
 `;
 
-const WIDTH_BREAK = '600px';
+const WIDTH_BREAK = '700px';
 
 const StyledImage = styled.div`
 	background-image: url('${(props) => props.image}');
@@ -21,14 +21,18 @@ const StyledImage = styled.div`
 
 const StyledContainer = styled.div`
 	background-color: white;
-	padding: 30px;
+	padding: 30px 50px;
 	@media (min-width: ${WIDTH_BREAK}) {
-		width: 100%;
-		min-width: calc(${WIDTH_BREAK} - 60px);
+		min-width: calc(${WIDTH_BREAK} - 100px);
 	}
 	@media (max-width: ${WIDTH_BREAK}) {
 		width: 100%;
 	}
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 `;
 
 function ImageWithSpace({ children, image }) {
