@@ -6,6 +6,10 @@ const StyledNavbar = styled.div`
 	height: 80px;
 	padding: 0 100px;
 	background-color: ${(props) => props.theme.white};
+
+	@media (max-width: 500px) {
+		padding: 0 20px;
+	}
 `;
 
 const StyledLogo = styled.span`
