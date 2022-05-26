@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import H4 from '../typography/h4';
+import H4 from '../typography/H4';
 import Textarea from '../inputs/TextArea';
 import Button from '../inputs/Button';
 

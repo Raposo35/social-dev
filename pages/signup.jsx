@@ -2,9 +2,9 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import ImageWithSpace from '../src/components/layout/ImageWithSpace';
 
-import H1 from '../src/components/typography/h1';
-import H4 from '../src/components/typography/h4';
-import H2 from '../src/components/typography/h2';
+import H1 from '../src/components/typography/H1';
+import H4 from '../src/components/typography/H4';
+import H2 from '../src/components/typography/H2';
 import Button from '../src/components/inputs/Button';
 import Input from '../src/components/inputs/Input';
 
