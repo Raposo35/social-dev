@@ -1,8 +1,11 @@
 // rotas
 
-import connect from 'next-connect'; // serve pra definir o verbo
+import createHandler from '../../../lib/middlewares/nextConect';
 import Joi from 'joi'; // validador do middleware
-import validate from '../../../lib/middlewares/validate'; // middleware para detectar erro
+
+// middleware para detectar erro de validação
+import validate from '../../../lib/middlewares/validate';
+import { signupUser } from '../../../modules/user/user.service';
 
 const postSchema = Joi.object({
 	firstName: Joi.string().required().max(50),
@@ -12,10 +15,10 @@ const postSchema = Joi.object({
 	password: Joi.string().required().max(50).min(6),
 });
 
-import { signupUser } from '../../../modules/user/user.service';
-
 // primeiro parametro do post validate
-const signup = connect().post(validate({ body: postSchema }), (req, res) => {
+const signup = createHandler();
+
+signup.post(validate({ body: postSchema }), (req, res) => {
 	signupUser(req.body);
 	res.status(200).send();
 });
