@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import ImageWithSpace from '../src/components/layout/ImageWithSpace';
@@ -24,6 +25,23 @@ const Text = styled.p`
 `;
 
 function SignupPage() {
+	const [fisrtName, setFisrtName] = useState('');
+	const [lastName, setLastName] = useState('');
+	const [user, setUser] = useState('');
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+
+	const handleForm = (event) => {
+		event.preventDefault();
+		console.log({
+			fisrtName,
+			lastName,
+			user,
+			email,
+			password,
+		});
+	};
+
 	return (
 		<>
 			<ImageWithSpace>
@@ -31,12 +49,29 @@ function SignupPage() {
 				<H4>Tudo que acontece no mundo dev, está aqui!</H4>
 				<FormContainer>
 					<H2> Crie sua conta</H2>
-					<Form>
-						<Input label="Nome" />
-						<Input label="Sobrenome" />
-						<Input label="Usuário" />
-						<Input label="Email" type="email" />
-						<Input label="Senha" type="password" />
+					<Form onSubmit={handleForm}>
+						<Input
+							label="Nome"
+							onChange={({ target }) => setFisrtName(target.value)}
+						/>
+						<Input
+							label="Sobrenome"
+							onChange={({ target }) => setLastName(target.value)}
+						/>
+						<Input
+							label="Usuário"
+							onChange={({ target }) => setUser(target.value)}
+						/>
+						<Input
+							label="Email"
+							type="email"
+							onChange={({ target }) => setEmail(target.value)}
+						/>
+						<Input
+							label="Senha"
+							type="password"
+							onChange={({ target }) => setPassword(target.value)}
+						/>
 						<Button>Cadastrar</Button>
 					</Form>
 					<Text>
