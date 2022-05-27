@@ -1,11 +1,13 @@
 // rotas
 
 import Joi from 'joi'; // validador do middleware
-import createHandler from '../../../lib/middlewares/nextConect';
+import { withIronSessionApiRoute } from 'iron-session/next';
 
+import createHandler from '../../../lib/middlewares/nextConect';
 // middleware para detectar erro de validação
 import validate from '../../../lib/middlewares/validate';
 import { signupUser } from '../../../modules/user/user.service';
+import { ironConfig } from '../../../lib/middlewares/ironsession';
 
 const signupSchema = Joi.object({
 	firstName: Joi.string().required().max(50),
@@ -21,11 +23,19 @@ const signup = createHandler();
 signup.post(validate({ body: signupSchema }), async (req, res) => {
 	try {
 		const user = await signupUser(req.body);
-		res.status(201).json(user);
+
+		// criar uma sessão para validar o usuário
+		req.session.user = {
+			id: user._id,
+			user: user.user,
+		};
+		await req.session.save();
+
+		res.status(201).json({ ok: true });
 	} catch (err) {
 		console.error(err);
 		throw err;
 	}
 });
 
-export default signup;
+export default withIronSessionApiRoute(signup, ironConfig);
