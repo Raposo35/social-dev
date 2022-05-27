@@ -32,7 +32,7 @@ function LoginPage() {
 				<FormContainer>
 					<H2> Entre em sua conta</H2>
 					<Form>
-						<Input label="Email ou usuário" type="email" />
+						<Input label="Usuário ou email" type="email" />
 						<Input label="Senha" type="password" />
 						<Button>Entrar</Button>
 					</Form>

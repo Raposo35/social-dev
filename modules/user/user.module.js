@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'; // os dados que serão criados no banco
 
 const UserSchema = new mongoose.Schema({
 	firstName: { type: String, required: true, maxlength: 50 },
