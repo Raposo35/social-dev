@@ -1,3 +1,4 @@
+import { forwardRef } from 'react'; // para funcionar a biblioteca formulário
 import styled from 'styled-components';
 
 const InputContainer = styled.div`
@@ -19,13 +20,14 @@ const StyledInput = styled.input`
 	border-radius: 10px;
 `;
 
-function Input({ label, ...props }) {
+// tem que ser arrow function a função envolver o input
+const Input = forwardRef(({ label, ...props }, ref) => {
 	return (
 		<InputContainer>
 			<StyledLabel>{label}</StyledLabel>
-			<StyledInput placeholder={label} {...props} />
+			<StyledInput placeholder={label} {...props} ref={ref} />
 		</InputContainer>
 	);
-}
+});
 
 export default Input;

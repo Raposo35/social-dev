@@ -7,15 +7,21 @@ import createHandler from '../../../lib/middlewares/nextConect';
 // middleware para detectar erro de validação
 import validate from '../../../lib/middlewares/validate';
 import { signupUser } from '../../../modules/user/user.service';
+
+// devido o envio do formulário
+import { signupSchema } from '../../../modules/user/user.schema';
+
 import { ironConfig } from '../../../lib/middlewares/ironsession';
 
-const signupSchema = Joi.object({
+// signupSchema vai substituir o postShema devido o formulário
+
+/* const postSchema = Joi.object({
 	firstName: Joi.string().required().max(50),
 	lastName: Joi.string().required().max(50),
 	user: Joi.string().required().max(30),
 	email: Joi.string().email().required().max(100),
 	password: Joi.string().required().max(50).min(6),
-});
+}); */
 
 // primeiro parametro do post validate
 const signup = createHandler();
