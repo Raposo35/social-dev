@@ -30,7 +30,7 @@ const Text = styled.p`
 
 function SignupPage() {
 	const {
-		register,
+		control,
 		handleSubmit,
 		formState: { errors },
 	} = useForm({
@@ -49,28 +49,15 @@ function SignupPage() {
 				<FormContainer>
 					<H2> Crie sua conta</H2>
 					<Form onSubmit={handleSubmit(handleForm)}>
-						<Input
-							label="Nome"
-							{...register('firstName')}
-							error={errors.firstName}
-						/>
-						<Input
-							label="Sobrenome"
-							{...register('lastName')}
-							error={errors.lastName}
-						/>
-						<Input label="Usuário" {...register('user')} error={errors.user} />
-						<Input
-							label="Email"
-							type="email"
-							{...register('email')}
-							error={errors.email}
-						/>
+						<Input label="Nome" name="firstName" control={control} />
+						<Input label="Sobrenome" name="lastName" control={control} />
+						<Input label="Usuário" name="user" control={control} />
+						<Input label="Email" name="email" control={control} />
 						<Input
 							label="Senha"
 							type="password"
-							{...register('password')}
-							error={errors.password}
+							name="password"
+							control={control}
 						/>
 						<Button type="submit" disabled={Object.keys(errors).length > 0}>
 							Cadastrar
