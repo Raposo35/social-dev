@@ -1,4 +1,3 @@
-import Joi from 'joi'; // validador do middleware
 // validar o usuário
 import { withIronSessionApiRoute } from 'iron-session/next';
 
@@ -16,9 +15,9 @@ import { loginSchema } from '../../../modules/user/user.schema';
 	password: Joi.string().required(),
 }); */
 
-const handle = createHandler();
+const handler = createHandler();
 
-handle.post(validate({ body: loginSchema }), async (req, res) => {
+handler.post(validate({ body: loginSchema }), async (req, res) => {
 	try {
 		const user = await loginUser(req.body);
 		// criar uma sessão para validar o usuário
@@ -35,4 +34,4 @@ handle.post(validate({ body: loginSchema }), async (req, res) => {
 });
 
 // envolver para validar o usuário
-export default withIronSessionApiRoute(handle, ironConfig);
+export default withIronSessionApiRoute(handler, ironConfig);

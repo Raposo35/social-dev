@@ -1,6 +1,5 @@
 // rotas
 
-import Joi from 'joi'; // validador do middleware
 import { withIronSessionApiRoute } from 'iron-session/next';
 
 import createHandler from '../../../lib/middlewares/nextConect';

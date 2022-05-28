@@ -2,7 +2,7 @@
 
 import { hashPassword, comparePassword } from '../../utils/bcrypt'; // transformar a senha hash
 
-import User from './user.module';
+import User from './user.model';
 
 export const signupUser = async (body) => {
 	try {
