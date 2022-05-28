@@ -8,11 +8,13 @@ import validate from '../../../lib/middlewares/validate';
 import { loginUser } from '../../../modules/user/user.service';
 // validar o usuário
 import { ironConfig } from '../../../lib/middlewares/ironsession';
+import { loginSchema } from '../../../modules/user/user.schema';
 
-const loginSchema = Joi.object({
+// transferido para user.module
+/* const loginSchema = Joi.object({
 	userOrEmail: Joi.string().required(),
 	password: Joi.string().required(),
-});
+}); */
 
 const handle = createHandler();
 
@@ -28,8 +30,7 @@ handle.post(validate({ body: loginSchema }), async (req, res) => {
 
 		res.send({ ok: true }); // não expor os dados do usuário na rota
 	} catch (err) {
-		console.error(err);
-		throw err;
+		return res.status(400).send(err.message);
 	}
 });
 

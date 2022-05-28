@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form'; // para enviar o formulário
 import { joiResolver } from '@hookform/resolvers/joi'; //para enviar o formulário
 import axios from 'axios'; // conectar o back-end com o front-end
-import { useRouter } from 'next/router'; //conectar o back-end com o front-end
+import { useRouter } from 'next/router'; // mandar o usuário para uma rota
 
 import { signupSchema } from '../modules/user/user.schema';
 
@@ -41,6 +41,7 @@ function SignupPage() {
 		resolver: joiResolver(signupSchema),
 	});
 
+	// conectar o formulário com o banco
 	const handleForm = async (data) => {
 		try {
 			const { status } = await axios.post(

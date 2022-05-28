@@ -13,8 +13,7 @@ import { signupSchema } from '../../../modules/user/user.schema';
 
 import { ironConfig } from '../../../lib/middlewares/ironsession';
 
-// signupSchema vai substituir o postShema devido o formulário
-
+// foi modificado o nome de signupSchema e transferido para user.module
 /* const postSchema = Joi.object({
 	firstName: Joi.string().required().max(50),
 	lastName: Joi.string().required().max(50),

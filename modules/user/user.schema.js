@@ -1,4 +1,4 @@
-import Joi from 'joi'; // validador do middleware
+import Joi from 'joi'; // validador do middleware Formulários
 
 export const signupSchema = Joi.object({
 	firstName: Joi.string()
@@ -18,6 +18,16 @@ export const signupSchema = Joi.object({
 		.required()
 		.max(100)
 		.message('O campo "email" pode ter no máximo {{#limit}} caracteres'),
+	password: Joi.string()
+		.required()
+		.max(50)
+		.message('O campo "senha" pode ter no máximo {{#limit}} caracteres')
+		.min(6)
+		.message('O campo "senha" pode ter no mínimo {{#limit}} caracteres'),
+});
+
+export const loginSchema = Joi.object({
+	userOrEmail: Joi.string().required(),
 	password: Joi.string()
 		.required()
 		.max(50)

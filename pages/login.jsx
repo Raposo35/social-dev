@@ -1,12 +1,17 @@
 import styled from 'styled-components';
 import Link from 'next/link';
-import ImageWithSpace from '../src/components/layout/ImageWithSpace';
+import { useForm } from 'react-hook-form'; // criar formulário
+import { joiResolver } from '@hookform/resolvers/joi'; // validar o formulário
+import axios from 'axios'; // fazer conexção do back com front
+import { useRouter } from 'next/router'; // rota para encaminhar do login página desejada
 
+import ImageWithSpace from '../src/components/layout/ImageWithSpace';
 import H1 from '../src/components/typography/H1';
 import H4 from '../src/components/typography/H4';
 import H2 from '../src/components/typography/H2';
 import Button from '../src/components/inputs/Button';
 import Input from '../src/components/inputs/Input';
+import { loginSchema } from '../modules/user/user.schema';
 
 const FormContainer = styled.div`
 	margin-top: 60px;
@@ -24,6 +29,39 @@ const Text = styled.p`
 `;
 
 function LoginPage() {
+	const router = useRouter();
+
+	const {
+		control,
+		handleSubmit,
+		formState: { errors },
+		setError,
+	} = useForm({
+		resolver: joiResolver(loginSchema),
+	});
+
+	const onSubmit = async (data) => {
+		try {
+			const { status } = await axios.post(
+				`${process.env.NEXT_PUBLIC_API_URL}/api/user/login`,
+				data
+			);
+			if (status === 200) {
+				router.push('/');
+			}
+		} catch ({ response }) {
+			if (response.data === 'password incorrect') {
+				setError('password', {
+					message: 'A senha está incorreta',
+				});
+			} else if (response.data === 'not found') {
+				setError('userOrEmail', {
+					message: 'Usuário ou email não encontrado',
+				});
+			}
+		}
+	};
+
 	return (
 		<>
 			<ImageWithSpace>
@@ -31,10 +69,22 @@ function LoginPage() {
 				<H4>Tudo que acontece no mundo dev, está aqui!</H4>
 				<FormContainer>
 					<H2> Entre em sua conta</H2>
-					<Form>
-						<Input label="Usuário ou email" type="email" />
-						<Input label="Senha" type="password" />
-						<Button>Entrar</Button>
+					<Form onSubmit={handleSubmit(onSubmit)}>
+						<Input
+							label="Usuário ou email"
+							type="text"
+							name="userOrEmail"
+							control={control}
+						/>
+						<Input
+							label="Senha"
+							type="password"
+							name="password"
+							control={control}
+						/>
+						<Button type="submit" disabled={Object.keys(errors).length > 0}>
+							Entrar
+						</Button>
 					</Form>
 					<Text>
 						Não possui uma conta? <Link href="/signup">Faça seu cadastro</Link>
